@@ -37,7 +37,13 @@ return {
 
       -- C / C++ / RUST (codelldb)
       -- On Windows, Mason installs codelldb.cmd instead of codelldb
-      local codelldb_cmd = vim.fn.stdpath "data" .. "/mason/bin/codelldb"
+      local codelldb_cmd = vim.fn.stdpath "data"
+        .. platform.path_sep
+        .. "mason"
+        .. platform.path_sep
+        .. "bin"
+        .. platform.path_sep
+        .. "codelldb"
       if platform.is_windows then
         codelldb_cmd = codelldb_cmd .. ".cmd"
       end

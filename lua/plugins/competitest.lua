@@ -16,14 +16,21 @@ return {
     config = function()
       local home = vim.fn.expand "~"
       local path_sep = platform.path_sep
-      local exe_suffix = platform.is_windows and ".exe" or ""
 
-      -- Build output path based on platform
-      local cpp_output = platform.is_windows and "$(ABSDIR)\\bin\\$(FNOEXT)" .. exe_suffix or "$(ABSDIR)/bin/$(FNOEXT)"
+      -- Helper function to build platform-appropriate executable path
+      local function build_exe_path()
+        if platform.is_windows then
+          return "$(ABSDIR)\\bin\\$(FNOEXT).exe"
+        end
+        return "$(ABSDIR)/bin/$(FNOEXT)"
+      end
 
-      local rust_output = platform.is_windows and "$(ABSDIR)\\bin\\$(FNOEXT)" .. exe_suffix or "$(ABSDIR)/bin/$(FNOEXT)"
+      -- Helper function to build template file paths
+      local function template_path(filename)
+        return table.concat({ home, "source", "comp", "templates", filename }, path_sep)
+      end
 
-      -- Python command: use "python" on Windows, "python3" on Unix
+      local exe_output = build_exe_path()
       local python_cmd = platform.is_windows and "python" or "python3"
 
       require("competitest").setup {
@@ -42,20 +49,17 @@ return {
           cpp = {
             exec = "g++",
             args = {
-              -- CORRECCIÓN 2: Usar $(FABSPATH) para la ruta completa del archivo fuente
               "$(FABSPATH)",
               "-o",
-              -- Use platform-appropriate path separator
-              cpp_output,
+              exe_output,
             },
           },
-          rust = { exec = "rustc", args = { "$(FABSPATH)", "-o", rust_output } },
+          rust = { exec = "rustc", args = { "$(FABSPATH)", "-o", exe_output } },
         },
 
         run_command = {
-          -- Use platform-appropriate executable path
-          cpp = { exec = cpp_output },
-          rust = { exec = rust_output },
+          cpp = { exec = exe_output },
+          rust = { exec = exe_output },
           python = { exec = python_cmd, args = { "$(FABSPATH)" } },
         },
         runner_ui = {
@@ -63,33 +67,9 @@ return {
         },
 
         template_file = {
-          cpp = home
-            .. path_sep
-            .. "source"
-            .. path_sep
-            .. "comp"
-            .. path_sep
-            .. "templates"
-            .. path_sep
-            .. "template.cpp",
-          py = home
-            .. path_sep
-            .. "source"
-            .. path_sep
-            .. "comp"
-            .. path_sep
-            .. "templates"
-            .. path_sep
-            .. "template.py",
-          rust = home
-            .. path_sep
-            .. "source"
-            .. path_sep
-            .. "comp"
-            .. path_sep
-            .. "templates"
-            .. path_sep
-            .. "template.rs",
+          cpp = template_path "template.cpp",
+          py = template_path "template.py",
+          rust = template_path "template.rs",
         },
       }
     end,
