@@ -52,7 +52,7 @@ return {
             fallback()
           end
         end, { "i", "s" }),
-        [accept_key] = cmp.mapping.confirm({ select = true}),
+        [accept_key] = cmp.mapping.confirm { select = true },
       }
 
       -- Sobrescribir SÓLO el keymap de <CR>

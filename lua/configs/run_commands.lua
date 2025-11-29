@@ -9,12 +9,12 @@ M.unix = {
   rust = "cargo run",
 }
 M.windows = {
-  c = "gcc -g % -o bin\\%< && bin\\%<.exe",
-  python = "python3 %",
+  c = "gcc -g % -o bin\\%<.exe && bin\\%<.exe",
+  python = "python %",
   lua = "lua %",
   go = "go run %",
   javascript = "node %",
-  cpp = "g++ -g % -o bin\\%< && bin\\%<.exe",
+  cpp = "g++ -g % -o bin\\%<.exe && bin\\%<.exe",
   rust = "cargo run",
 }
 return M
