@@ -1,3 +1,4 @@
+local platform = require "utils.platform"
 local km = require("mappings").competitest
 
 return {
@@ -14,6 +15,17 @@ return {
 
     config = function()
       local home = vim.fn.expand "~"
+      local path_sep = platform.path_sep
+      local exe_suffix = platform.is_windows and ".exe" or ""
+
+      -- Build output path based on platform
+      local cpp_output = platform.is_windows and "$(ABSDIR)\\bin\\$(FNOEXT)" .. exe_suffix or "$(ABSDIR)/bin/$(FNOEXT)"
+
+      local rust_output = platform.is_windows and "$(ABSDIR)\\bin\\$(FNOEXT)" .. exe_suffix or "$(ABSDIR)/bin/$(FNOEXT)"
+
+      -- Python command: use "python" on Windows, "python3" on Unix
+      local python_cmd = platform.is_windows and "python" or "python3"
+
       require("competitest").setup {
         host = "0.0.0.0",
         port = 10042,
@@ -33,27 +45,51 @@ return {
               -- CORRECCIÓN 2: Usar $(FABSPATH) para la ruta completa del archivo fuente
               "$(FABSPATH)",
               "-o",
-              -- CORRECCIÓN 3: Usar $(ABSDIR) para ruta absoluta de la carpeta de salida
-              "$(ABSDIR)/bin/$(FNOEXT)",
+              -- Use platform-appropriate path separator
+              cpp_output,
             },
           },
-          rust = { exec = "rustc", args = { "$(FABSPATH)" } },
+          rust = { exec = "rustc", args = { "$(FABSPATH)", "-o", rust_output } },
         },
 
         run_command = {
-          -- CORRECCIÓN 4: Usar la ruta absoluta del ejecutable
-          cpp = { exec = "$(ABSDIR)/bin/$(FNOEXT)" },
-          rust = { exec = "$(ABSDIR)/bin/$(FNOEXT)" },
-          python = { exec = "python3", args = { "$(FABSPATH)" } }, -- También mejor con ruta absoluta
+          -- Use platform-appropriate executable path
+          cpp = { exec = cpp_output },
+          rust = { exec = rust_output },
+          python = { exec = python_cmd, args = { "$(FABSPATH)" } },
         },
         runner_ui = {
           interface = "popup",
         },
 
         template_file = {
-          cpp = home .. "/source/comp/templates/template.cpp",
-          py = home .. "/source/comp/templates/template.py",
-          rust = home .. "/source/comp/templates/template.rs",
+          cpp = home
+            .. path_sep
+            .. "source"
+            .. path_sep
+            .. "comp"
+            .. path_sep
+            .. "templates"
+            .. path_sep
+            .. "template.cpp",
+          py = home
+            .. path_sep
+            .. "source"
+            .. path_sep
+            .. "comp"
+            .. path_sep
+            .. "templates"
+            .. path_sep
+            .. "template.py",
+          rust = home
+            .. path_sep
+            .. "source"
+            .. path_sep
+            .. "comp"
+            .. path_sep
+            .. "templates"
+            .. path_sep
+            .. "template.rs",
         },
       }
     end,

@@ -1,3 +1,5 @@
+local platform = require "utils.platform"
+
 return {
   {
     "mfussenegger/nvim-dap",
@@ -25,20 +27,27 @@ return {
 
       -- 3. Adaptadores
 
-      -- PYTHON
+      -- PYTHON: use "python" on Windows, "python3" on Unix
+      local python_cmd = platform.is_windows and "python" or "python3"
       dap.adapters.python = {
         type = "executable",
-        command = "python3",
+        command = python_cmd,
         args = { "-m", "debugpy.adapter" },
       }
 
       -- C / C++ / RUST (codelldb)
+      -- On Windows, Mason installs codelldb.cmd instead of codelldb
+      local codelldb_cmd = vim.fn.stdpath "data" .. "/mason/bin/codelldb"
+      if platform.is_windows then
+        codelldb_cmd = codelldb_cmd .. ".cmd"
+      end
+
       dap.adapters.codelldb = {
         type = "server",
         port = "${port}",
         executable = {
           -- IMPORTANTE: Asegúrate de que codelldb esté instalado vía Mason
-          command = vim.fn.stdpath "data" .. "/mason/bin/codelldb",
+          command = codelldb_cmd,
           args = { "--port", "${port}" },
         },
       }
@@ -46,13 +55,15 @@ return {
       -- 4. Configuraciones (Launch)
 
       -- Configuración compartida para C y C++
+      local exe_suffix = platform.is_windows and ".exe" or ""
+      local path_sep = platform.path_sep
       local c_cpp_config = {
         {
           name = "Launch file",
           type = "codelldb",
           request = "launch",
           program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/bin/", "file")
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. path_sep .. "bin" .. path_sep, "file")
           end,
           cwd = "${workspaceFolder}",
           stopOnEntry = false,

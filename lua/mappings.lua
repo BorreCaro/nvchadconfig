@@ -41,7 +41,7 @@ map("n", "<leader>du", function()
 end, { desc = "DAP UI Toggle" })
 
 -- Copilot
-map("n", "<leader>cp", "<cmd>Copilot toggle<CR>",{desc =  "Copilot Toggle Copilot"})
+map("n", "<leader>cp", "<cmd>Copilot toggle<CR>", { desc = "Copilot Toggle Copilot" })
 M.cmp_accept_key = "<C-y>"
 
 -- Competitest
@@ -53,7 +53,7 @@ M.competitest = {
   recv = { key = "<leader>pi", desc = "Competitest Download Problem (Integration)" },
 }
 M.silicon = {
-  whole = {key = "<leader>ss", desc = "Silicon Screenshot whole file"},
-  selection = {key = "<leader>sv", desc = "Silicon Screenshot selection"},
+  whole = { key = "<leader>ss", desc = "Silicon Screenshot whole file" },
+  selection = { key = "<leader>sv", desc = "Silicon Screenshot selection" },
 }
 return M

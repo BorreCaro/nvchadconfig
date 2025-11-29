@@ -1,4 +1,11 @@
+local platform = require "utils.platform"
 local km = require("mappings").silicon
+
+-- Silicon requires the silicon binary which may not be available on Windows
+-- Disable the plugin if silicon is not installed
+if not platform.executable_exists "silicon" then
+  return {}
+end
 
 return {
   "michaelrommel/nvim-silicon",
