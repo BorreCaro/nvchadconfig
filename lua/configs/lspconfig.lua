@@ -3,10 +3,9 @@ local config = require "nvchad.configs.lspconfig"
 local on_attach = config.on_attach
 local capabilities = config.capabilities
 
-local lspconfig = require "lspconfig"
 local navic = require "nvim-navic"
 
-local servers = { "html", "cssls", "pyright", "clangd" }
+local servers = { "html", "cssls", "pyright", "clangd", "ruff" }
 
 -- Función para conectar Navic + Defaults de NvChad
 local function custom_on_attach(client, bufnr)
@@ -19,10 +18,14 @@ local function custom_on_attach(client, bufnr)
   end
 end
 
--- Inicializar servidores
+-- Inicializar servidores (Sintaxis Neovim 0.11+)
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  -- 1. Configurar el servidor (fusiona con los defaults de lspconfig)
+  vim.lsp.config(lsp, {
     on_attach = custom_on_attach,
     capabilities = capabilities,
-  }
-end -- read :h vim.lsp.config for changing options of lsp servers
+  })
+
+  -- 2. Habilitar el servidor
+  vim.lsp.enable(lsp)
+end

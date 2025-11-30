@@ -27,3 +27,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank()
   end,
 })
+vim.diagnostic.config {
+  -- Mostrar el texto completo del error/advertencia en línea (al lado del código)
+  virtual_text = {
+    -- Mostrarlo siempre, pero solo para Warnings (W) o más graves
+    severity = { min = "WARN" },
+    source = "always",
+  },
+
+  -- Asegurar que el pop-up (hover) esté activo
+  float = true,
+
+  -- Asegurar que los signos (W, E) estén en el margen
+  signs = true,
+}
