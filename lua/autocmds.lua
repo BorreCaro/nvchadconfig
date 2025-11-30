@@ -20,3 +20,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.keymap.set("t", _G.terminal_close_key, "<C-\\><C-n>:bd!<CR>", { buffer = bufnr, silent = true })
   end,
 })
+-- Yank Highlight
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})

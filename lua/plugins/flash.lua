@@ -1,5 +1,6 @@
 local km = require("mappings").flash
 return {
+  "folke/flash.nvim",
   event = "VeryLazy",
   opts = {},
   keys = {

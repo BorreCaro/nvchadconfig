@@ -5,6 +5,7 @@ local options = {
     html = { "prettier" },
     c = { "clang-format" },
     cpp = { "clang-format" },
+    py = { "pyright" },
   },
   formatters = {
     ["clang-format"] = {
