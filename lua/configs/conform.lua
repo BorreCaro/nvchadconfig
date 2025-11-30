@@ -3,6 +3,15 @@ local options = {
     lua = { "stylua" },
     css = { "prettier" },
     html = { "prettier" },
+    c = { "clang-format" },
+    cpp = { "clang-format" },
+  },
+  formatters = {
+    ["clang-format"] = {
+      args = {
+        "-style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
+      },
+    },
   },
 
   format_on_save = {

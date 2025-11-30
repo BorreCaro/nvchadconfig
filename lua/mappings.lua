@@ -59,4 +59,8 @@ M.silicon = {
 M.lazygit = {
   lazygit = { key = "<leader>lg", desc = "LazyGit Open LazyGit" },
 }
+M.trouble = {
+  diagnostics = { key = "<leader>td", desc = "Trouble Toggle Diagnostics" },
+  references = { key = "<leader>tr", desc = "Trouble Toggle References" },
+}
 return M
