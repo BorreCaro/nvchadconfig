@@ -63,4 +63,16 @@ M.trouble = {
   diagnostics = { key = "<leader>td", desc = "Trouble Toggle Diagnostics" },
   references = { key = "<leader>tr", desc = "Trouble Toggle References" },
 }
+M.flash = {
+  jump = { key = "s", desc = "Flash Jump" },
+  treesitter = { key = "S", desc = "Flash Treesitter (Block select)" },
+}
+
+-- Refactoring
+map("x", "<leader>re", ":Refactor extract ", { desc = "Refactor Extract" })
+map("x", "<leader>rv", ":Refactor extract_var", { desc = "Refator Extract Var" })
+map({ "n", "x" }, "<leader>rI", ":Refactor inline_var", { desc = "Refactor Refactor Inline Var" })
+map("n", "<leader>ri", ":Refactor inline_func", { desc = "Refactor Refactor Inline Function" })
+map("n", "<leader>rb", ":Refactor extract_block", { desc = "Refactor Extract Block" })
+
 return M
