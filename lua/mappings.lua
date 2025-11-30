@@ -56,4 +56,7 @@ M.silicon = {
   whole = { key = "<leader>ss", desc = "Silicon Screenshot whole file" },
   selection = { key = "<leader>sv", desc = "Silicon Screenshot selection" },
 }
+M.lazygit = {
+  lazygit = { key = "<leader>lg", desc = "LazyGit Open LazyGit" },
+}
 return M
