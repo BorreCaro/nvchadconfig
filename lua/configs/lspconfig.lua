@@ -5,7 +5,7 @@ local capabilities = config.capabilities
 
 local navic = require "nvim-navic"
 
-local servers = { "html", "cssls", "pyright", "clangd", "ruff" }
+local servers = { "html", "cssls", "pyright", "clangd", "ruff", "jdtls" }
 
 -- Función para conectar Navic + Defaults de NvChad
 local function custom_on_attach(client, bufnr)

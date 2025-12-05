@@ -7,6 +7,7 @@ M.unix = {
   javascript = "node %",
   cpp = "g++ -g % -o bin/%< && ./bin/%<",
   rust = "cargo run",
+  java = "javac % -d bin %<.java && java -cp bin %<",
 }
 M.windows = {
   c = "gcc -g % -o bin\\%<.exe && bin\\%<.exe",
@@ -16,5 +17,6 @@ M.windows = {
   javascript = "node %",
   cpp = "g++ -g % -o bin\\%<.exe && bin\\%<.exe",
   rust = "cargo run",
+  java = "javac % -d bin %<.java && java -cp bin %<",
 }
 return M
