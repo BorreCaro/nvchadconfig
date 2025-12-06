@@ -8,7 +8,7 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local servers = { "html", "cssls", "pyright", "clangd", "ruff", "jdtls" }
+local servers = { "html", "cssls", "pyright", "clangd", "ruff", "rust-analyzer", "stylua", "jdtls" }
 
 for _, lsp in ipairs(servers) do
   -- Sintaxis nvim 0.11+
