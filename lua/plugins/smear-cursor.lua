@@ -1,6 +1,8 @@
+local is_win = require("utils.platform").is_windows
 return {
   "sphamba/smear-cursor.nvim",
   lazy = false,
+  enabled = is_win,
   opts = {
     stiffness = 0.8,
     trailing_stiffness = 0.5,
