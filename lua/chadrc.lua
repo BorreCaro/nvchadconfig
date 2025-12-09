@@ -2,7 +2,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "chadracula-evondev",
+  theme = "redhorizon",
   transparency = true,
   hl_override = {
     Comment = { italic = true },
