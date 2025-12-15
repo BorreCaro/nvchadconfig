@@ -27,7 +27,7 @@ return {
 
       -- Helper function to build template file paths
       local function template_path(filename)
-        return table.concat({ home, "source", "comp", "templates", filename }, path_sep)
+        return table.concat({ home, "Desktop", "code", "comp", "templates", filename }, path_sep)
       end
 
       local exe_output = build_exe_path()
