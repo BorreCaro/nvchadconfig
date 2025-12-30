@@ -3,6 +3,7 @@ require "nvchad.options"
 -- add yours here!
 
 local o = vim.o
+o.shell = "/bin/zsh"
 o.cursorlineopt = "both" -- to enable cursorline!
 o.relativenumber = true
 o.number = true

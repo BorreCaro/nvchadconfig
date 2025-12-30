@@ -6,6 +6,7 @@ local options = {
     c = { "clang-format" },
     cpp = { "clang-format" },
     py = { "pyright" },
+    rs = { "rust-analyzer" },
   },
   formatters = {
     ["clang-format"] = {
